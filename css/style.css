@@ -21,19 +21,31 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.8);
     padding: 1rem 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    animation: navbarFadeIn 1s ease forwards;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .nav-brand {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--primary-color);
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 1rem;
+}
+
+.nav-brand:hover {
+    text-shadow: 0 0 15px rgba(151, 61, 235, 0.5);
+    transform: translateY(-2px);
 }
 
 .nav-menu {
@@ -42,15 +54,54 @@ body {
     gap: 2rem;
 }
 
+.nav-menu li {
+    opacity: 0;
+    animation: menuItemFadeIn 0.5s ease forwards;
+}
+
+.nav-menu li:nth-child(1) { animation-delay: 0.2s; }
+.nav-menu li:nth-child(2) { animation-delay: 0.4s; }
+.nav-menu li:nth-child(3) { animation-delay: 0.6s; }
+.nav-menu li:nth-child(4) { animation-delay: 0.8s; }
+
 .nav-menu a {
     color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    position: relative;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
 }
 
 .nav-menu a:hover {
     color: var(--primary-color);
+    background: rgba(151, 61, 235, 0.1);
+}
+
+.nav-menu a:hover::after {
+    width: 80%;
+}
+
+.nav-menu a.active {
+    color: var(--primary-color);
+    background: rgba(151, 61, 235, 0.1);
+}
+
+.nav-menu a.active::after {
+    width: 80%;
 }
 
 /* 主页区域样式 */
@@ -73,11 +124,105 @@ body {
     font-size: 3rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
+    text-shadow: 
+        /* 内层白色描边 */
+        -2px -2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px 2px 0 #fff,
+        /* 外层白色描边 */
+        -3px -3px 0 #fff,
+        3px -3px 0 #fff,
+        -3px 3px 0 #fff,
+        3px 3px 0 #fff,
+        /* 添加柔和阴影 */
+        0 4px 8px rgba(151, 61, 235, 0.3),
+        0 6px 12px rgba(151, 61, 235, 0.2),
+        0 8px 16px rgba(151, 61, 235, 0.1);
+    animation: titleAnimation 2s ease-out forwards;
+    font-weight: 700;
 }
 
 .subtitle {
     font-size: 1.5rem;
     margin-bottom: 2rem;
+    text-shadow: 
+        /* 更细的白色描边 */
+        -1px -1px 0 #fff,
+        1px -1px 0 #fff,
+        -1px 1px 0 #fff,
+        1px 1px 0 #fff,
+        /* 添加柔和阴影 */
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: subtitleAnimation 2s ease-out forwards;
+    color: #444;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* 优化标题动画效果 */
+@keyframes titleAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+        text-shadow: 
+            -2px -2px 0 #fff,
+            2px -2px 0 #fff,
+            -2px 2px 0 #fff,
+            2px 2px 0 #fff,
+            -3px -3px 0 #fff,
+            3px -3px 0 #fff,
+            -3px 3px 0 #fff,
+            3px 3px 0 #fff,
+            0 4px 8px rgba(151, 61, 235, 0);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: 
+            -2px -2px 0 #fff,
+            2px -2px 0 #fff,
+            -2px 2px 0 #fff,
+            2px 2px 0 #fff,
+            -3px -3px 0 #fff,
+            3px -3px 0 #fff,
+            -3px 3px 0 #fff,
+            3px 3px 0 #fff,
+            0 4px 8px rgba(151, 61, 235, 0.3),
+            0 6px 12px rgba(151, 61, 235, 0.2),
+            0 8px 16px rgba(151, 61, 235, 0.1);
+    }
+}
+
+@keyframes subtitleAnimation {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+        text-shadow: 
+            -1px -1px 0 #fff,
+            1px -1px 0 #fff,
+            -1px 1px 0 #fff,
+            1px 1px 0 #fff,
+            0 2px 4px rgba(0, 0, 0, 0);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateX(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        text-shadow: 
+            -1px -1px 0 #fff,
+            1px -1px 0 #fff,
+            -1px 1px 0 #fff,
+            1px 1px 0 #fff,
+            0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 }
 
 /* 社交链接样式 */
@@ -98,6 +243,9 @@ body {
     border-radius: 25px;
     text-decoration: none;
     transition: all 0.3s ease;
+    animation: buttonPopUp 0.5s ease forwards;
+    animation-delay: calc(var(--btn-index) * 0.2s);
+    opacity: 0;
 }
 
 .social-link:hover {
@@ -182,6 +330,19 @@ body {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+
+    .nav-menu {
+        gap: 1rem;
+    }
+
+    .nav-menu a {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
     .social-links {
         flex-direction: column;
         align-items: center;
@@ -190,5 +351,45 @@ body {
     .social-link {
         width: 80%;
         justify-content: center;
+    }
+}
+
+/* 导航栏动画 */
+@keyframes navbarFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+        backdrop-filter: blur(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        backdrop-filter: blur(10px);
+    }
+}
+
+@keyframes menuItemFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 社交链接按钮动画 */
+@keyframes buttonPopUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    70% {
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 } 
