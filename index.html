@@ -1,90 +1,219 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-    <title>WuXiaoMu-er的个人空间</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="https://www.bilibili.com/favicon.ico" />
+    <title>WuXiaoMu-er | 开发者</title>
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/80154839?v=4" type="image/png">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/head.css">
     <link rel="stylesheet" href="css/timeline.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- 导航栏 -->
+    <!-- 导航 -->
     <nav class="navbar">
         <div class="nav-brand">WuXiaoMu-er</div>
         <ul class="nav-menu">
             <li><a href="#home" class="active">首页</a></li>
-            <li><a href="https://space.bilibili.com/323611141">关于我</a></li>
-            <li><a href="https://space.bilibili.com/323611141">作品</a></li>
-            <li><a href="https://afdian.com/a/WuXiaoMu">赞助</a></li>
+            <li><a href="#about">关于</a></li>
+            <li><a href="#projects">项目</a></li>
+            <li><a href="#skills">技能</a></li>
+            <li><a href="#contact">联系</a></li>
         </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
 
-    <!-- 主页区域 -->
+    <!-- Hero -->
     <section id="home" class="hero">
+        <canvas id="techCanvas"></canvas>
         <div class="backimg"></div>
         <div class="hero-content">
-            <h1 class="title1 animate-text">Hi, I am WuXiaoMu !</h1>
-            <p class="subtitle animate-text">欢迎来到我的个人空间</p>
+            <h1>
+                <span class="greeting">Hi, I am</span>
+                <span class="name">WuXiaoMu !</span>
+            </h1>
+            <p class="subtitle">Im WuXiaoMu, Call Me Too.</p>
+            <div class="typing-wrapper">
+                <span class="typing-text"></span><span class="cursor">|</span>
+            </div>
             <div class="social-links">
-                <a href="https://space.bilibili.com/323611141" class="social-link bilibili" style="--btn-index: 1">
-                    <svg width="24" height="24" viewBox="0 -2 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" class="zhuzhan-icon">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.73252 2.67094C3.33229 2.28484 3.33229 1.64373 3.73252 1.25764C4.11291 0.890684 4.71552 0.890684 5.09591 1.25764L7.21723 3.30403C7.27749 3.36218 7.32869 3.4261 7.37081 3.49407H10.5789C10.6211 3.4261 10.6723 3.36218 10.7325 3.30403L12.8538 1.25764C13.2342 0.890684 13.8368 0.890684 14.2172 1.25764C14.6175 1.64373 14.6175 2.28484 14.2172 2.67094L13.364 3.49407H14C16.2091 3.49407 18 5.28493 18 7.49407V12.9996C18 15.2087 16.2091 16.9996 14 16.9996H4C1.79086 16.9996 0 15.2087 0 12.9996V7.49406C0 5.28492 1.79086 3.49407 4 3.49407H4.58579L3.73252 2.67094ZM4 5.42343C2.89543 5.42343 2 6.31886 2 7.42343V13.0702C2 14.1748 2.89543 15.0702 4 15.0702H14C15.1046 15.0702 16 14.1748 16 13.0702V7.42343C16 6.31886 15.1046 5.42343 14 5.42343H4ZM5 9.31747C5 8.76519 5.44772 8.31747 6 8.31747C6.55228 8.31747 7 8.76519 7 9.31747V10.2115C7 10.7638 6.55228 11.2115 6 11.2115C5.44772 11.2115 5 10.7638 5 10.2115V9.31747ZM12 8.31747C11.4477 8.31747 11 8.76519 11 9.31747V10.2115C11 10.7638 11.4477 11.2115 12 11.2115C12.5523 11.2115 13 10.7638 13 10.2115V9.31747C13 8.76519 12.5523 8.31747 12 8.31747Z" fill="currentColor"></path>
-                    </svg>
-                    <span>哔哩哔哩主页</span>
+                <a href="https://space.bilibili.com/323611141" class="social-link">
+                    <i class="fab fa-bilibili"></i><span>哔哩哔哩</span>
                 </a>
-                <a href="https://github.com/WuXiaoMuer" class="social-link github" style="--btn-index: 2">
-                    <svg height="24" viewBox="0 0 16 16" width="24">
-                        <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                    <span>GitHub</span>
+                <a href="https://github.com/WuXiaoMuer" class="social-link">
+                    <i class="fab fa-github"></i><span>GitHub</span>
                 </a>
-                <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g?from_tab_name=main" class="social-link douyin" style="--btn-index: 3">
-                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                        <path d="M36.5 12.5H11.5C9.84315 12.5 8.5 13.8431 8.5 15.5V40.5C8.5 42.1569 9.84315 43.5 11.5 43.5H36.5C38.1569 43.5 39.5 42.1569 39.5 40.5V15.5C39.5 13.8431 38.1569 12.5 36.5 12.5Z" stroke="currentColor" stroke-width="4"/>
-                        <path d="M24 4.5L24 12.5" stroke="currentColor" stroke-width="4"/>
-                        <path d="M16 4.5L32 4.5" stroke="currentColor" stroke-width="4"/>
-                    </svg>
-                    <span>抖音</span>
+                <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g" class="social-link">
+                    <i class="fab fa-tiktok"></i><span>抖音</span>
                 </a>
-                <a href="https://www.kuaishou.com/profile/3xtmy9qb83tc94k" class="social-link kuaishou" style="--btn-index: 4">
-                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                        <path d="M24 4L8 12V36L24 44L40 36V12L24 4Z" stroke="currentColor" stroke-width="4"/>
-                    </svg>
-                    <span>快手</span>
+                <a href="https://www.kuaishou.com/profile/3xtmy9qb83tc94k" class="social-link">
+                    <i class="fas fa-video"></i><span>快手</span>
                 </a>
-                <a href="https://afdian.com/a/WuXiaoMu" class="social-link sponsor" style="--btn-index: 5">
-                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                        <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" stroke="currentColor" stroke-width="4"/>
-                        <path d="M24 12V24L32 28" stroke="currentColor" stroke-width="4"/>
-                    </svg>
-                    <span>赞助支持</span>
+                <a href="https://afdian.com/a/WuXiaoMu" class="social-link">
+                    <i class="fas fa-heart"></i><span>赞助</span>
+                </a>
+            </div>
+            <div class="scroll-arrow">向下滚动</div>
+        </div>
+    </section>
+
+    <!-- 关于 -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">关于我</h2>
+            <div class="about-content">
+                <div class="about-avatar">
+                    <img src="https://avatars.githubusercontent.com/u/80154839?v=4" alt="WuXiaoMu Avatar" class="avatar-img">
+                </div>
+                <div class="about-text">
+                    <p>Im WuXiaoMu, Call Me Too. 我是雾削木，一个热爱创造的全栈开发者。</p>
+                    <p>我在GitHub上维护着27个开源项目，从嵌入式系统到Web应用，从工具软件到游戏开发。</p>
+                    <p>坐标：中国 | 开源贡献者</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-number" data-target="27">0</span>
+                        <span class="stat-label">开源项目</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number" data-target="18">0</span>
+                        <span class="stat-label">关注者</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">2021</span>
+                        <span class="stat-label">加入GitHub</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number" data-target="35">0</span>
+                        <span class="stat-label">正在关注</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能 -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">技术栈</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3><i class="fas fa-gamepad"></i> 游戏开发</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Unity</span>
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">游戏设计</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-microchip"></i> 嵌入式</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">STM32</span>
+                        <span class="skill-tag">51单片机</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-laptop-code"></i> 桌面应用</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">.NET</span>
+                        <span class="skill-tag">WPF</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-server"></i> Web开发</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-tools"></i> 开发工具</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Docker</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-music"></i> 多媒体</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">音频处理</span>
+                        <span class="skill-tag">Bass库</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目 -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">开源项目</h2>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="popular">热门</button>
+                <button class="filter-btn" data-filter="recent">最新</button>
+            </div>
+            <div class="projects-grid" id="projects-list">
+                <!-- JS加载项目 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系 -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">联系我</h2>
+            <div class="contact-methods">
+                <a href="https://github.com/WuXiaoMuer" class="contact-method">
+                    <i class="fab fa-github"></i><span>GitHub</span>
+                </a>
+                <a href="https://space.bilibili.com/323611141" class="contact-method">
+                    <i class="fab fa-bilibili"></i><span>哔哩哔哩</span>
+                </a>
+                <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g" class="contact-method">
+                    <i class="fab fa-tiktok"></i><span>抖音</span>
+                </a>
+                <a href="https://www.kuaishou.com/profile/3xtmy9qb83tc94k" class="contact-method">
+                    <i class="fas fa-video"></i><span>快手</span>
+                </a>
+                <a href="https://afdian.com/a/WuXiaoMu" class="contact-method">
+                    <i class="fas fa-heart"></i><span>爱发电</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- 项目时间线 -->
-    <section class="timeline-section">
-        <h2 class="timeline-title">我的项目</h2>
-        <div class="timeline">
-            <!-- 项目列表将通过JavaScript动态生成 -->
-        </div>
-    </section>
+    <!-- 时间 -->
+    <div id="time"></div>
 
-    <!-- 时间显示 -->
-    <div class="time-container">
-        <span id="time"></span>
-    </div>
-
-    <!-- 页尾 -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <p>© 2017-2025 WuXiaoMu. All rights reserved.</p>
-            <p>Powered by <a href="https://github.com/WuXiaoMuer" target="_blank">GitHub</a></p>
+            <div class="footer-logo">WuXiaoMu</div>
+            <p class="footer-tagline">Im WuXiaoMu, Call Me Too.</p>
+            <div class="footer-links">
+                <a href="#home">首页</a>
+                <a href="#about">关于</a>
+                <a href="#projects">项目</a>
+                <a href="#skills">技能</a>
+                <a href="#contact">联系</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://github.com/WuXiaoMuer" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://space.bilibili.com/323611141" target="_blank"><i class="fab fa-bilibili"></i></a>
+                <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g" target="_blank"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="footer-copyright">© 2021-2025 WuXiaoMu (雾削木). All rights reserved.</p>
         </div>
     </footer>
 
