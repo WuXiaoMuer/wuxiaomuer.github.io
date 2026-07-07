@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchGitHubProjects();
             initializeStatsCounters();
             initializeProjectFilters();
+            initializeNameCard();
         } catch (err) {
             console.warn('Advanced features failed:', err);
         }
@@ -147,6 +148,23 @@ function initializeTypingEffect() {
     typeText();
 }
 
+// 名片交互（点击/键盘翻转）
+function initializeNameCard() {
+    const card = document.querySelector('.name-card');
+    if (!card) return;
+
+    card.addEventListener('click', () => {
+        card.classList.toggle('flipped');
+    });
+
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.classList.toggle('flipped');
+        }
+    });
+}
+
 // 科技背景连线特效
 function initializeTechBackground() {
     const canvas = document.getElementById('techCanvas');
@@ -209,7 +227,7 @@ function initializeTechBackground() {
         }
 
         draw() {
-            ctx.fillStyle = 'rgba(0, 212, 255, 0.8)';
+            ctx.fillStyle = 'rgba(168, 85, 247, 0.8)';
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
@@ -219,7 +237,7 @@ function initializeTechBackground() {
     // 创建粒子
     function createParticles() {
         particles = [];
-        const numberOfParticles = Math.floor((canvas.width * canvas.height) / 15000);
+        const numberOfParticles = Math.floor((canvas.width * canvas.height) / 18000);
         for (let i = 0; i < Math.max(numberOfParticles, 10); i++) {
             particles.push(new Particle());
         }
@@ -235,7 +253,7 @@ function initializeTechBackground() {
 
                 if (distance < 120) {
                     const opacity = (1 - (distance / 120)) * 0.3;
-                    ctx.strokeStyle = `rgba(0, 212, 255, ${opacity})`;
+                    ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
                     ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.moveTo(particles[a].x, particles[a].y);
