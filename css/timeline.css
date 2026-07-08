@@ -1,21 +1,2 @@
-/* 项目卡片动画 */
-.project-card {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease;
-}
-
-.project-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.error-msg {
-    text-align: center;
-    padding: 3rem;
-    color: #f472b6;
-    background: rgba(244, 114, 182, 0.1);
-    border-radius: 16px;
-    border: 1px solid rgba(244, 114, 182, 0.3);
-    margin: 2rem 0;
-}
+/* project-card animation is defined in style.css,
+   this file is kept for extension compatibility. */

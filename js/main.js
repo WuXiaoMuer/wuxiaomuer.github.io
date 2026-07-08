@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeNavigation();
     initializeTypingEffect();
     initializeFadeAnimations();
+    initializeCalendar();
+    loadBlogPosts();
     
     setTimeout(() => {
         try {
@@ -66,7 +68,7 @@ function initializeNavigation() {
             } else {
                 const target = document.querySelector(targetId);
                 if (target) {
-                    const navHeight = 70;
+                    const navHeight = 66;
                     const top = target.offsetTop - navHeight;
                     window.scrollTo({ top: top, behavior: 'smooth' });
                 }
@@ -227,7 +229,7 @@ function initializeTechBackground() {
         }
 
         draw() {
-            ctx.fillStyle = 'rgba(168, 85, 247, 0.8)';
+            ctx.fillStyle = 'rgba(155, 66, 219, 0.55)';
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
@@ -253,7 +255,7 @@ function initializeTechBackground() {
 
                 if (distance < 120) {
                     const opacity = (1 - (distance / 120)) * 0.3;
-                    ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
+                    ctx.strokeStyle = `rgba(155, 66, 219, ${opacity})`;
                     ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.moveTo(particles[a].x, particles[a].y);
@@ -471,6 +473,156 @@ function animateCounter(element, target) {
     };
     
     updateCounter();
+}
+
+// 日历渲染
+function initializeCalendar() {
+    const monthEl = document.getElementById('calMonth');
+    const yearEl = document.getElementById('calYear');
+    const gridEl = document.getElementById('calGrid');
+    const timeEl = document.getElementById('calTime');
+    if (!monthEl || !gridEl) return;
+
+    function renderCalendar() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth();
+        const today = now.getDate();
+
+        const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        monthEl.textContent = monthNames[month];
+        yearEl.textContent = year;
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrev = new Date(year, month, 0).getDate();
+
+        let html = '';
+        for (let i = 0; i < 7; i++) {
+            const d = ['日','一','二','三','四','五','六'];
+            html += `<span class="day-header">${d[i]}</span>`;
+        }
+
+        for (let i = firstDay - 1; i >= 0; i--) {
+            html += `<span class="day other-month">${daysInPrev - i}</span>`;
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+            const cls = d === today ? 'day today' : 'day';
+            html += `<span class="${cls}">${d}</span>`;
+        }
+
+        const remaining = 42 - (firstDay + daysInMonth);
+        for (let i = 1; i <= remaining; i++) {
+            html += `<span class="day other-month">${i}</span>`;
+        }
+
+        gridEl.innerHTML = html;
+    }
+
+    function updateTime() {
+        if (!timeEl) return;
+        const now = new Date();
+        timeEl.textContent = now.toLocaleTimeString('zh-CN', { hour12: false });
+    }
+
+    renderCalendar();
+    updateTime();
+    setInterval(updateTime, 1000);
+}
+
+// 加载博客文章
+async function loadBlogPosts() {
+    const container = document.getElementById('blogList');
+    if (!container) return;
+
+    try {
+        const resp = await fetch('/api/articles');
+        if (!resp.ok) throw new Error('API unavailable');
+        const articles = await resp.json();
+        renderBlogPosts(articles, container);
+    } catch {
+        try {
+            const resp = await fetch('/articles/data.json');
+            if (!resp.ok) throw new Error('No static articles');
+            const articles = await resp.json();
+            renderBlogPosts(articles, container);
+        } catch {
+            container.innerHTML = `
+                <div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--color-muted);">
+                    <i class="fas fa-feather" style="font-size:2rem;color:var(--color-brand);margin-bottom:1rem;display:block;"></i>
+                    <p>还没有文章，<a href="/admin/" style="color:var(--color-brand);text-decoration:underline;">写下第一篇</a></p>
+                </div>`;
+        }
+    }
+}
+
+function renderBlogPosts(articles, container) {
+    if (!articles || articles.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--color-muted);">
+                <i class="fas fa-feather" style="font-size:2rem;color:var(--color-brand);margin-bottom:1rem;display:block;"></i>
+                <p>还没有文章，<a href="/admin/" style="color:var(--color-brand);text-decoration:underline;">写下第一篇</a></p>
+            </div>`;
+        return;
+    }
+
+    container.innerHTML = '';
+    articles.slice(0, 6).forEach((article, i) => {
+        const card = document.createElement('div');
+        card.className = 'blog-card fade-in';
+        card.style.animationDelay = `${i * 0.08}s`;
+
+        const date = new Date(article.createdAt || article.date).toLocaleDateString('zh-CN');
+        const tags = (article.tags || []).map(t => `<span>${t}</span>`).join('');
+        const slug = article.slug || article.title?.replace(/\s+/g, '-').toLowerCase();
+
+        card.innerHTML = `
+            <div class="blog-date"><i class="fas fa-calendar"></i> ${date}</div>
+            <h3>${article.title}</h3>
+            <p>${article.summary || article.content?.substring(0, 120) || ''}</p>
+            ${tags ? `<div class="blog-tags">${tags}</div>` : ''}
+            <div class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></div>
+        `;
+
+        card.addEventListener('click', () => {
+            const viewer = document.getElementById('blogViewer');
+            if (viewer) {
+                viewer.innerHTML = `
+                    <div class="card" style="padding:2rem;max-width:720px;margin:0 auto;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+                            <h3 style="font-family:var(--font-averia);font-size:1.5rem;color:var(--color-primary);">${article.title}</h3>
+                            <button onclick="closeBlogViewer()" style="background:none;border:none;font-size:1.5rem;color:var(--color-muted);cursor:pointer;">&times;</button>
+                        </div>
+                        <div style="font-size:0.82rem;color:var(--color-muted);margin-bottom:1.5rem;">
+                            <i class="fas fa-calendar"></i> ${date}
+                            ${tags ? `&nbsp;&nbsp;<i class="fas fa-tags"></i> ${article.tags?.join(', ')}` : ''}
+                        </div>
+                        <div style="line-height:1.8;color:var(--color-primary-soft);">
+                            ${article.content || article.summary || ''}
+                        </div>
+                    </div>
+                    <div style="text-align:center;margin-top:2rem;">
+                        <button onclick="closeBlogViewer()" class="brand-btn">返回</button>
+                    </div>`;
+                viewer.style.display = 'flex';
+            }
+        });
+
+        container.appendChild(card);
+
+        setTimeout(() => {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+            }, { threshold: 0.1 });
+            obs.observe(card);
+        }, 50);
+    });
+}
+
+function closeBlogViewer() {
+    const viewer = document.getElementById('blogViewer');
+    if (viewer) viewer.style.display = 'none';
 }
 
 // 错误处理

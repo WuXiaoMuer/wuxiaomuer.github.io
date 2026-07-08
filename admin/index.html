@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>写文章 · WuXiaoMu</title>
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/80154839?v=4" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Gruesa+Libre&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --brand: #9B42DB;
+            --brand-pink: #FF86F4;
+            --primary: #2a1040;
+            --bg: #f8f4ff;
+            --card: rgba(255,255,255,0.72);
+            --radius: 20px;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter','Noto Sans SC',sans-serif;
+            background: var(--bg);
+            color: var(--primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .navbar {
+            position:sticky; top:0; z-index:100;
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(14px);
+            border-bottom:1px solid rgba(155,66,219,0.10);
+            padding:0 2rem; height:60px;
+            display:flex; align-items:center; justify-content:space-between;
+        }
+        .navbar .logo {
+            font-family:'Averia Gruesa Libre',cursive;
+            font-size:1.2rem;
+            background: linear-gradient(135deg,var(--brand),var(--brand-pink));
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        .navbar a {
+            color:#7a5a8a; text-decoration:none; font-size:0.85rem; transition:color 0.2s;
+        }
+        .navbar a:hover { color:var(--brand); }
+        .container { max-width:800px; margin:0 auto; padding:2rem 1.5rem 4rem; }
+        h1 {
+            font-family:'Averia Gruesa Libre',cursive;
+            font-size:1.8rem; font-weight:400;
+            margin-bottom:0.5rem;
+        }
+        .desc { color:#7a5a8a; font-size:0.9rem; margin-bottom:2rem; }
+        .card {
+            background:var(--card);
+            border:1px solid rgba(155,66,219,0.10);
+            border-radius:var(--radius);
+            backdrop-filter:blur(8px);
+            padding:1.5rem;
+            box-shadow:0 8px 24px rgba(42,16,64,0.06);
+        }
+        .form-group { margin-bottom:1.2rem; }
+        label { display:block; font-size:0.85rem; font-weight:600; margin-bottom:0.4rem; color:var(--primary); }
+        input, textarea, select {
+            width:100%; padding:0.7rem 0.9rem;
+            border:1px solid rgba(155,66,219,0.15);
+            border-radius:12px; font-family:inherit; font-size:0.92rem;
+            background:rgba(255,255,255,0.8);
+            transition:border-color 0.2s;
+            outline:none; color:var(--primary);
+        }
+        input:focus, textarea:focus { border-color:var(--brand); }
+        textarea { resize:vertical; min-height:120px; line-height:1.6; }
+        .btn {
+            display:inline-flex; align-items:center; gap:8px;
+            padding:10px 24px; border:none; border-radius:12px;
+            font-size:0.9rem; font-weight:500; cursor:pointer;
+            transition:transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary {
+            background:var(--brand); color:#fff;
+            box-shadow:0 4px 12px rgba(155,66,219,0.15);
+        }
+        .btn-primary:hover { box-shadow:0 8px 20px rgba(155,66,219,0.25); transform:translateY(-2px); }
+        .btn-danger {
+            background:#e74c3c; color:#fff;
+        }
+        .btn-outline {
+            background:transparent; border:1px solid rgba(155,66,219,0.2); color:var(--primary);
+        }
+        .btn-outline:hover { border-color:var(--brand); }
+        .article-list { margin-top:2rem; }
+        .article-item {
+            display:flex; align-items:center; justify-content:space-between;
+            padding:0.8rem 1rem;
+            border-bottom:1px solid rgba(155,66,219,0.06);
+        }
+        .article-item:last-child { border-bottom:none; }
+        .article-item .title { font-size:0.92rem; font-weight:500; }
+        .article-item .date { font-size:0.75rem; color:#7a5a8a; }
+        .article-item .actions { display:flex; gap:0.5rem; }
+        .article-item .actions button {
+            background:none; border:none; cursor:pointer; font-size:0.9rem; color:#7a5a8a; transition:color 0.2s;
+        }
+        .article-item .actions button:hover { color:var(--brand); }
+        .article-item .actions .delete-btn:hover { color:#e74c3c; }
+        .toast {
+            position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+            background:var(--card); backdrop-filter:blur(12px);
+            border:1px solid rgba(155,66,219,0.10);
+            border-radius:12px; padding:0.7rem 1.5rem;
+            box-shadow:0 8px 24px rgba(42,16,64,0.1);
+            font-size:0.85rem; display:none; z-index:9999;
+        }
+        .toast.show { display:block; }
+        .status-bar {
+            display:flex; align-items:center; gap:0.5rem;
+            font-size:0.8rem; color:#7a5a8a; margin-bottom:1rem;
+        }
+        .status-dot {
+            width:8px; height:8px; border-radius:50%;
+        }
+        .status-dot.online { background:#2ecc71; }
+        .status-dot.offline { background:#e74c3c; }
+        @media (max-width:600px) {
+            .navbar { padding:0 1rem; }
+            .container { padding:1.5rem 1rem 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">WuXiaoMu</div>
+        <a href="/"><i class="fas fa-arrow-left"></i> 返回主页</a>
+    </nav>
+
+    <div class="container">
+        <h1>写文章</h1>
+        <p class="desc">使用 Markdown 语法编写，支持 HTML 标签。</p>
+
+        <div class="status-bar">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">检查 API 连接...</span>
+        </div>
+
+        <div class="card">
+            <div class="form-group">
+                <label>标题</label>
+                <input type="text" id="titleInput" placeholder="文章标题">
+            </div>
+            <div class="form-group">
+                <label>摘要（留空自动截取）</label>
+                <input type="text" id="summaryInput" placeholder="简短描述文章内容">
+            </div>
+            <div class="form-group">
+                <label>标签（逗号分隔）</label>
+                <input type="text" id="tagsInput" placeholder="例如: JavaScript, Web, 教程">
+            </div>
+            <div class="form-group">
+                <label>正文 (Markdown / HTML)</label>
+                <textarea id="contentInput" rows="12" placeholder="在这里写文章内容... 支持 Markdown 和 HTML"></textarea>
+            </div>
+            <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+                <button class="btn btn-primary" onclick="publishArticle()">
+                    <i class="fas fa-paper-plane"></i> 发布文章
+                </button>
+                <button class="btn btn-outline" onclick="clearForm()">
+                    <i class="fas fa-eraser"></i> 清空
+                </button>
+            </div>
+        </div>
+
+        <div class="article-list" id="articleList">
+            <h2 style="font-family:'Averia Gruesa Libre',cursive;font-size:1.2rem;font-weight:400;margin:2rem 0 1rem;color:var(--primary);">已发布文章</h2>
+            <div class="card" id="articlesContainer"></div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const API = '/api/articles';
+
+        async function checkStatus() {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            try {
+                const resp = await fetch(API);
+                if (resp.ok) {
+                    dot.className = 'status-dot online';
+                    text.textContent = 'API 在线 (Vercel)';
+                } else {
+                    dot.className = 'status-dot offline';
+                    text.textContent = 'API 异常 (仅静态模式)';
+                }
+            } catch {
+                dot.className = 'status-dot offline';
+                text.textContent = 'API 离线 (仅静态模式)';
+            }
+        }
+
+        function showToast(msg, isError) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.style.color = isError ? '#e74c3c' : 'var(--primary)';
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        async function loadArticles() {
+            const container = document.getElementById('articlesContainer');
+            try {
+                const resp = await fetch(API);
+                if (!resp.ok) throw new Error('fail');
+                const articles = await resp.json();
+                if (articles.length === 0) {
+                    container.innerHTML = '<div style="text-align:center;padding:1.5rem;color:#7a5a8a;font-size:0.85rem;">还没有文章</div>';
+                    return;
+                }
+                container.innerHTML = articles.map(a => `
+                    <div class="article-item">
+                        <div>
+                            <div class="title">${a.title}</div>
+                            <div class="date">${new Date(a.createdAt).toLocaleDateString('zh-CN')} · ${(a.tags||[]).join(', ')}</div>
+                        </div>
+                        <div class="actions">
+                            <button onclick="fillEdit('${a.id}')" title="编辑"><i class="fas fa-pen"></i></button>
+                            <button class="delete-btn" onclick="deleteArticle('${a.id}')" title="删除"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch {
+                container.innerHTML = '<div style="text-align:center;padding:1.5rem;color:#7a5a8a;font-size:0.85rem;">API 不可用，文章无法加载</div>';
+            }
+        }
+
+        async function publishArticle() {
+            const title = document.getElementById('titleInput').value.trim();
+            const content = document.getElementById('contentInput').value.trim();
+            const summary = document.getElementById('summaryInput').value.trim();
+            const tags = document.getElementById('tagsInput').value.split(/[,，]/).map(t => t.trim()).filter(Boolean);
+
+            if (!title) { showToast('请输入文章标题', true); return; }
+            if (!content) { showToast('请输入文章内容', true); return; }
+
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 发布中...';
+
+            try {
+                const resp = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, content, summary, tags })
+                });
+                if (!resp.ok) throw new Error('Publish failed');
+                showToast('文章发布成功！');
+                clearForm();
+                loadArticles();
+            } catch (err) {
+                showToast('发布失败：' + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> 发布文章';
+            }
+        }
+
+        async function deleteArticle(id) {
+            if (!confirm('确定删除这篇文章？')) return;
+            try {
+                const resp = await fetch(API + '?id=' + id, { method: 'DELETE' });
+                if (!resp.ok) throw new Error('Delete failed');
+                showToast('文章已删除');
+                loadArticles();
+            } catch (err) {
+                showToast('删除失败：' + err.message, true);
+            }
+        }
+
+        function fillEdit(id) {
+            const container = document.getElementById('articlesContainer');
+            const items = container.querySelectorAll('.article-item');
+            // Simple approach: reload and find by id, then fill form
+            fetch(API).then(r => r.json()).then(articles => {
+                const article = articles.find(a => a.id === id);
+                if (!article) return;
+                document.getElementById('titleInput').value = article.title;
+                document.getElementById('contentInput').value = article.content;
+                document.getElementById('summaryInput').value = article.summary || '';
+                document.getElementById('tagsInput').value = (article.tags || []).join(', ');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                showToast('已加载到编辑器，修改后重新发布即可');
+            }).catch(() => showToast('无法加载文章', true));
+        }
+
+        function clearForm() {
+            document.getElementById('titleInput').value = '';
+            document.getElementById('contentInput').value = '';
+            document.getElementById('summaryInput').value = '';
+            document.getElementById('tagsInput').value = '';
+        }
+
+        checkStatus();
+        loadArticles();
+    </script>
+</body>
+</html>

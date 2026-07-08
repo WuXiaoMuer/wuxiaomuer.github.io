@@ -1,0 +1,22 @@
+[
+  {
+    "id": "welcome",
+    "slug": "welcome",
+    "title": "欢迎来到 WuXiaoMu 的个人主页",
+    "content": "<p>这是使用紫 Crystal 主题的个人主页。本站支持通过 Vercel 部署的文章系统。</p><p>你可以通过 <code>/admin/</code> 管理后台撰写文章，或直接编辑 <code>articles/data.json</code> 添加内容。</p><p>主题配色来自 GitHub 头像的紫色调，布局参考 lvyovo-wiki.tech 的玻璃拟态风格。</p>",
+    "summary": "紫 Crystal 主题的个人主页介绍，支持 Vercel 文章系统。",
+    "tags": ["介绍", "主题"],
+    "createdAt": "2026-07-08T00:00:00.000Z",
+    "updatedAt": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "id": "dev-stack",
+    "slug": "dev-stack",
+    "title": "开发技术栈",
+    "content": "<p>游戏开发：Unity、C#、游戏设计</p><p>嵌入式：C、STM32、51单片机</p><p>桌面应用：C#、.NET、WPF</p><p>Web 开发：JavaScript、Node.js、Python</p><p>开发工具：Git、VS Code、Docker</p>",
+    "summary": "WuXiaoMu 的全栈开发技术栈概览。",
+    "tags": ["技术", "开发"],
+    "createdAt": "2026-07-07T00:00:00.000Z",
+    "updatedAt": "2026-07-07T00:00:00.000Z"
+  }
+]
