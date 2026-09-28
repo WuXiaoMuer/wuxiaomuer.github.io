@@ -3,30 +3,73 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WuXiaoMu-er · 紫 Crystal</title>
+    <meta name="color-scheme" content="light dark">
+    <title>雾削木 WuXiaoMu · 全栈开发工程师</title>
+    <meta name="description" content="雾削木（WuXiaoMu）— 全栈开发工程师。游戏开发、嵌入式、桌面应用与 Web 开发，从系统底层到应用层。Full-Stack Developer: games, embedded, desktop & web.">
+    <meta name="keywords" content="雾削木,WuXiaoMu,全栈开发,Full-Stack,游戏开发,嵌入式,Unity,C#,STM32,JavaScript,Node.js,开源">
+    <meta name="author" content="WuXiaoMu (雾削木)">
+    <link rel="canonical" href="https://wuxiaomuer.github.io/">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="雾削木 WuXiaoMu · 全栈开发工程师">
+    <meta property="og:description" content="游戏开发、嵌入式、桌面应用与 Web 开发 — 从系统底层到应用层的全栈开发者。">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/80154839?v=4">
+    <meta property="og:url" content="https://wuxiaomuer.github.io/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="雾削木 WuXiaoMu · 全栈开发工程师">
+    <meta name="twitter:description" content="Full-Stack Developer: games, embedded, desktop & web.">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/80154839?v=4">
+
     <link rel="icon" href="https://avatars.githubusercontent.com/u/80154839?v=4" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/head.css">
-    <link rel="stylesheet" href="css/timeline.css">
     <link href="https://fonts.googleapis.com/css2?family=Averia+Gruesa+Libre&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
 </head>
 <body>
+    <!-- 阅读进度条 -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到顶部">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <!-- 导航 -->
     <nav class="navbar">
-        <div class="nav-brand">WuXiaoMu-er</div>
+        <a class="nav-brand" href="#home">雾削木<span class="nav-brand-en">WuXiaoMu</span></a>
         <ul class="nav-menu">
-            <li><a href="#home" class="active">首页</a></li>
             <li><a href="#about">关于</a></li>
+            <li><a href="#skills">技能</a></li>
             <li><a href="#projects">项目</a></li>
             <li><a href="#blog">博客</a></li>
-            <li><a href="#skills">技能</a></li>
             <li><a href="#contact">联系</a></li>
         </ul>
-        <div class="nav-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle" aria-label="切换深浅主题" title="切换深浅主题">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
@@ -41,11 +84,11 @@
             <span>27 Open Source</span>
             <span class="panel-badge">PRO</span>
         </div>
-        <div class="floating-panel" style="top:60%;left:3%;">
+        <div class="floating-panel" style="top:60%;left:3%;animation-delay:-2s;">
             <i class="fas fa-code"></i>
             <span>Full Stack Dev</span>
         </div>
-        <div class="floating-panel" style="top:30%;right:4%;">
+        <div class="floating-panel" style="top:30%;right:4%;animation-delay:-4s;">
             <img src="https://avatars.githubusercontent.com/u/80154839?v=4" alt="avatar">
             <span>WuXiaoMu</span>
             <span class="panel-badge">CALL ME TOO</span>
@@ -59,26 +102,26 @@
             <div class="hero-text">
                 <h1>
                     <span class="greeting">Hi, I am</span>
-                    <span class="name">WuXiaoMu !</span>
+                    <span class="name">WuXiaoMu!</span>
                 </h1>
-                <p class="subtitle">Im WuXiaoMu, Call Me Too.</p>
+                <p class="subtitle">I'm WuXiaoMu, Call Me Too.</p>
                 <div class="typing-wrapper">
                     <span class="typing-text"></span><span class="cursor">|</span>
                 </div>
                 <div class="social-links">
-                    <a href="https://space.bilibili.com/323611141" class="social-link">
+                    <a href="https://space.bilibili.com/323611141" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-bilibili"></i><span>哔哩哔哩</span>
                     </a>
-                    <a href="https://github.com/WuXiaoMuer" class="social-link">
+                    <a href="https://github.com/WuXiaoMuer" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-github"></i><span>GitHub</span>
                     </a>
-                    <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g" class="social-link">
+                    <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-tiktok"></i><span>抖音</span>
                     </a>
-                    <a href="https://www.kuaishou.com/profile/3xtmy9qb83tc94k" class="social-link">
+                    <a href="https://www.kuaishou.com/profile/3xtmy9qb83tc94k" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-video"></i><span>快手</span>
                     </a>
-                    <a href="https://afdian.com/a/WuXiaoMu" class="social-link">
+                    <a href="https://afdian.com/a/WuXiaoMu" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-heart"></i><span>赞助</span>
                     </a>
                 </div>
@@ -114,32 +157,95 @@
     <!-- 关于 -->
     <section id="about">
         <div class="container">
-            <h2 class="section-title">关于我</h2>
+            <h2 class="section-title">关于我<span class="section-title-en">About</span></h2>
             <div class="about-content">
                 <div class="about-avatar">
-                    <img src="https://avatars.githubusercontent.com/u/80154839?v=4" alt="WuXiaoMu Avatar" class="avatar-img">
+                    <img src="https://avatars.githubusercontent.com/u/80154839?v=4" alt="WuXiaoMu 头像" class="avatar-img">
                 </div>
                 <div class="about-text">
-                    <p>Im WuXiaoMu, Call Me Too. 我是雾削木，一个热爱创造的全栈开发者。</p>
-                    <p>我在GitHub上维护着27个开源项目，从嵌入式系统到Web应用，从工具软件到游戏开发。</p>
-                    <p>坐标：中国 | 开源贡献者</p>
+                    <p>你好，我是雾削木（WuXiaoMu），一名全栈开发工程师。我热衷于从系统底层到应用层的全栈实践——从裸机操作系统内核、C 编译器，到游戏、桌面工具和 Web 应用。目前在 GitHub 上维护着 27+ 个开源项目。</p>
+                    <p>Hi, I'm WuXiaoMu (雾削木), a full-stack developer. I build across the stack — from bare-metal OS kernels and C compilers to games, desktop tools, and web apps. I maintain 27+ open-source projects on GitHub.</p>
+                    <p class="about-meta">坐标：中国 · 开源贡献者 · Open Source Contributor</p>
                 </div>
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <span class="stat-number" data-target="27">0</span>
-                        <span class="stat-label">开源项目</span>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number" data-target="27">0</span>
+                    <span class="stat-label">开源项目 Open Source</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" data-target="8">0</span>
+                    <span class="stat-label">编程语言 Languages</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" data-target="4">0</span>
+                    <span class="stat-label">技术方向 Focus Areas</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">2021</span>
+                    <span class="stat-label">加入 GitHub Since</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能 -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">技术栈<span class="section-title-en">Skills</span></h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3><i class="fas fa-gamepad"></i> 游戏开发 <span>Game Dev</span></h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Unity</span>
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">Godot</span>
+                        <span class="skill-tag">游戏设计</span>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-number" data-target="18">0</span>
-                        <span class="stat-label">关注者</span>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-microchip"></i> 嵌入式 <span>Embedded</span></h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">STM32</span>
+                        <span class="skill-tag">51单片机</span>
+                        <span class="skill-tag">裸机</span>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-number">2021</span>
-                        <span class="stat-label">加入GitHub</span>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-laptop-code"></i> 桌面应用 <span>Desktop</span></h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">.NET</span>
+                        <span class="skill-tag">WPF</span>
+                        <span class="skill-tag">WinForms</span>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-number" data-target="35">0</span>
-                        <span class="stat-label">正在关注</span>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-server"></i> Web 开发 <span>Web</span></h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-cogs"></i> 系统编程 <span>Systems</span></h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">操作系统内核</span>
+                        <span class="skill-tag">编译器</span>
+                        <span class="skill-tag">Linux</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-tools"></i> 工具 <span>Tools</span></h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">CI</span>
                     </div>
                 </div>
             </div>
@@ -149,14 +255,14 @@
     <!-- 项目 -->
     <section id="projects">
         <div class="container">
-            <h2 class="section-title">开源项目</h2>
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">全部</button>
-                <button class="filter-btn" data-filter="popular">热门</button>
-                <button class="filter-btn" data-filter="recent">最新</button>
-            </div>
+            <h2 class="section-title">精选项目<span class="section-title-en">Projects</span></h2>
             <div class="projects-grid" id="projects-list">
-                <!-- JS加载项目 -->
+                <!-- JS 渲染精选项目 -->
+            </div>
+            <div class="projects-more">
+                <a href="https://github.com/WuXiaoMuer?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                    查看全部项目 All Repos <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -164,70 +270,9 @@
     <!-- 博客 -->
     <section id="blog" class="blog-section">
         <div class="container">
-            <h2 class="section-title">最新文章</h2>
-            <p style="text-align:center;color:var(--color-muted);margin-bottom:1rem;font-size:0.9rem;">
-                <a href="/admin/" class="brand-btn" style="font-size:0.8rem;padding:6px 14px;">
-                    <i class="fas fa-pen"></i> 写文章
-                </a>
-            </p>
+            <h2 class="section-title">博客<span class="section-title-en">Blog</span></h2>
             <div class="blog-grid" id="blogList">
                 <!-- JS 加载文章 -->
-            </div>
-        </div>
-    </section>
-
-    <!-- 技能 -->
-    <section id="skills">
-        <div class="container">
-            <h2 class="section-title">技术栈</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3><i class="fas fa-gamepad"></i> 游戏开发</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Unity</span>
-                        <span class="skill-tag">C#</span>
-                        <span class="skill-tag">游戏设计</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><i class="fas fa-microchip"></i> 嵌入式</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">C</span>
-                        <span class="skill-tag">STM32</span>
-                        <span class="skill-tag">51单片机</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><i class="fas fa-laptop-code"></i> 桌面应用</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">C#</span>
-                        <span class="skill-tag">.NET</span>
-                        <span class="skill-tag">WPF</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><i class="fas fa-server"></i> Web开发</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Python</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><i class="fas fa-tools"></i> 开发工具</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">VS Code</span>
-                        <span class="skill-tag">Docker</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><i class="fas fa-music"></i> 多媒体</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">音频处理</span>
-                        <span class="skill-tag">Bass库</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -235,22 +280,19 @@
     <!-- 联系 -->
     <section id="contact">
         <div class="container">
-            <h2 class="section-title">联系我</h2>
+            <h2 class="section-title">联系我<span class="section-title-en">Contact</span></h2>
             <div class="contact-methods">
-                <a href="https://github.com/WuXiaoMuer" class="contact-method">
+                <a href="https://github.com/WuXiaoMuer" target="_blank" rel="noopener noreferrer" class="contact-method">
                     <i class="fab fa-github"></i><span>GitHub</span>
                 </a>
-                <a href="https://space.bilibili.com/323611141" class="contact-method">
+                <a href="https://space.bilibili.com/323611141" target="_blank" rel="noopener noreferrer" class="contact-method">
                     <i class="fab fa-bilibili"></i><span>哔哩哔哩</span>
                 </a>
-                <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g" class="contact-method">
+                <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g" target="_blank" rel="noopener noreferrer" class="contact-method">
                     <i class="fab fa-tiktok"></i><span>抖音</span>
                 </a>
-                <a href="https://www.kuaishou.com/profile/3xtmy9qb83tc94k" class="contact-method">
+                <a href="https://www.kuaishou.com/profile/3xtmy9qb83tc94k" target="_blank" rel="noopener noreferrer" class="contact-method">
                     <i class="fas fa-video"></i><span>快手</span>
-                </a>
-                <a href="https://afdian.com/a/WuXiaoMu" class="contact-method">
-                    <i class="fas fa-heart"></i><span>爱发电</span>
                 </a>
             </div>
         </div>
@@ -259,7 +301,7 @@
     <!-- 日历玻璃小部件 -->
     <div class="calendar-widget" id="calendarWidget">
         <div class="calendar-header">
-            <span class="calendar-month" id="calMonth">July</span>
+            <span class="calendar-month" id="calMonth">September</span>
             <span class="calendar-year" id="calYear">2026</span>
         </div>
         <div class="calendar-grid" id="calGrid">
@@ -275,33 +317,28 @@
     </div>
 
     <!-- 时间 -->
-    <div id="time"></div>
+    <div id="time">
+        <i class="fas fa-clock"></i>
+        <span id="timeText"></span>
+    </div>
 
     <!-- 博客阅读器浮层 -->
-    <div id="blogViewer" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(248,244,255,0.85);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);overflow-y:auto;padding:4rem 1.5rem;align-items:flex-start;justify-content:center;"></div>
+    <div id="blogViewer" style="display:none;position:fixed;inset:0;z-index:99999;background:var(--color-viewer-bg);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);overflow-y:auto;padding:4rem 1.5rem;align-items:flex-start;justify-content:center;"></div>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-logo">WuXiaoMu</div>
-            <p class="footer-tagline">Im WuXiaoMu, Call Me Too.</p>
-            <div class="footer-links">
-                <a href="#home">首页</a>
-                <a href="#about">关于</a>
-                <a href="#projects">项目</a>
-                <a href="#blog">博客</a>
-                <a href="#skills">技能</a>
-                <a href="#contact">联系</a>
-            </div>
+            <div class="footer-logo">雾削木 · WuXiaoMu</div>
+            <p class="footer-tagline">全栈开发工程师 · Full-Stack Developer</p>
             <div class="footer-social">
-                <a href="https://github.com/WuXiaoMuer" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://space.bilibili.com/323611141" target="_blank"><i class="fab fa-bilibili"></i></a>
-                <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://github.com/WuXiaoMuer" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://space.bilibili.com/323611141" target="_blank" rel="noopener noreferrer" aria-label="哔哩哔哩"><i class="fab fa-bilibili"></i></a>
+                <a href="https://www.douyin.com/user/MS4wLjABAAAALEnmF2GGAYyG241RkQlxVYPIUaqX7uW7qYCUXVyyV_g" target="_blank" rel="noopener noreferrer" aria-label="抖音"><i class="fab fa-tiktok"></i></a>
             </div>
             <p class="footer-copyright">© 2021-2026 WuXiaoMu (雾削木). All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>

@@ -13,3 +13,11 @@
         radial-gradient(ellipse 60% 50% at 85% 70%, var(--hero-glow-2) 0%, transparent 60%),
         linear-gradient(180deg, var(--hero-bg-top) 0%, var(--hero-bg-bottom) 100%);
 }
+
+/* 深色主题下的 Hero 背景 */
+[data-theme="dark"] {
+    --hero-bg-top: #0e0718;
+    --hero-bg-bottom: #1a0f2b;
+    --hero-glow: rgba(155, 66, 219, 0.32);
+    --hero-glow-2: rgba(255, 134, 244, 0.18);
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>404 · 雾削木 WuXiaoMu</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/head.css">
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Gruesa+Libre&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .nf-code {
+            font-family: var(--font-averia);
+            font-size: clamp(4rem, 16vw, 7rem);
+            background: linear-gradient(135deg, var(--color-brand), var(--color-brand-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        .nf-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin: 1.2rem 0 0.5rem;
+        }
+        .nf-desc { color: var(--color-muted); margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="nf-code">404</div>
+        <p class="nf-title">页面不存在 · Page Not Found</p>
+        <p class="nf-desc">你访问的页面可能已被移动或删除。</p>
+        <a href="/" class="btn-gradient">← 返回首页 Home</a>
+    </div>
+</body>
+</html>
